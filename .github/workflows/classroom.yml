@@ -30,28 +30,28 @@ jobs:
         
         
       # Flight Service
-      - name: Grant execute permission for gradlew
+      - name: Flight Service
         run: cd flight && chmod +x gradlew
-      - name: Build with Gradle
+      - name: Build Flight
         run: cd flight && ./gradlew build
         
       # Ticket Service
-      - name: Grant execute permission for gradlew
+      - name: Ticket Service
         run: cd ticket && chmod +x gradlew
-      - name: Build with Gradle
+      - name: Build Ticket
         run: cd ticket && ./gradlew build
         
       # Bonus Service
-      - name: Grant execute permission for gradlew
+      - name: Bonus Service
         run: cd bonus && chmod +x gradlew
-      - name: Build with Gradle
+      - name: Build Bonus
         run: cd bonus && ./gradlew build
         
       # Gateway Service
-      - name: Grant execute permission for gradlew
+      - name: Gateway Service
         run: cd gateway && chmod +x gradlew
-      - name: Build with Gradle
-        run: cd gateway && ./gradlew build
+      - name: Build Gateway
+        run: cd gateway && ./gradlew build  
 
       - name: Build images
         timeout-minutes: 10
