@@ -10,8 +10,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import rsoi.lab2.gateway.model.*;
 import rsoi.lab2.gateway.service.GatewayService;
-import rsoi.lab2.ticket.gatewayservice.model.*;
-rsoi.lab2.gateway.model.*;
+import rsoi.lab2.gateway.model.*;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
