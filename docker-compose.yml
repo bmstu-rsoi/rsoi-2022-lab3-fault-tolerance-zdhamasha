@@ -13,8 +13,30 @@ services:
       - ./postgres/:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
+  
+  ticket:
+    build:
+      context: ticket
+    ports:
+      - "8070:8070"  
 
-# TODO добавить сервисы
+  flight:
+    build:
+      context: flight
+    ports:
+      - "8060:8060"
+  
+  bonus:
+    build:
+      context: bonus
+    ports:
+      - "8050:8050"
+      
+  gateway:
+    build:
+      context: gateway
+    ports:
+      - "8080:8080"
 
 volumes:
   db-data:
