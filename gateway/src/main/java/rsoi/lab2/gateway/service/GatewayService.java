@@ -6,7 +6,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import rsoi.lab2.gateway.model.*;
 import rsoi.lab2.ticket.gatewayservice.model.*;
-import ru.shemich.gatewayservice.model.*;
+rsoi.lab2.gateway.model.*;
 
 import java.util.List;
 import java.util.UUID;
