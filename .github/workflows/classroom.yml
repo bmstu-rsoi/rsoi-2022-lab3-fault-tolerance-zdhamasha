@@ -3,9 +3,11 @@ on:
   push:
     branches:
       - master
+      - refactor-lab2
   pull_request:
     branches:
       - master
+      - refactor-lab2
 jobs:
   build:
     name: Autograding
@@ -17,7 +19,39 @@ jobs:
 
       - uses: docker/setup-buildx-action@v2
 
-      # TODO build and run unit tests
+      - name: set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+            java-version: 17
+            cache: gradle
+            
+      - name: set up gradle
+        uses: gradle/gradle-build-action@v2
+        
+        
+      # Flight Service
+      - name: Grant execute permission for gradlew
+        run: cd flight && chmod +x gradlew
+      - name: Build with Gradle
+        run: cd flight && ./gradlew build
+        
+      # Ticket Service
+      - name: Grant execute permission for gradlew
+        run: cd ticket && chmod +x gradlew
+      - name: Build with Gradle
+        run: cd ticket && ./gradlew build
+        
+      # Bonus Service
+      - name: Grant execute permission for gradlew
+        run: cd bonus && chmod +x gradlew
+      - name: Build with Gradle
+        run: cd bonus && ./gradlew build
+        
+      # Gateway Service
+      - name: Grant execute permission for gradlew
+        run: cd gateway && chmod +x gradlew
+      - name: Build with Gradle
+        run: cd gateway && ./gradlew build
 
       - name: Build images
         timeout-minutes: 10
@@ -31,29 +65,27 @@ jobs:
         env:
           WAIT_PORTS: 8080,8070,8060,8050
 
-      # TODO setup variant, service and port
-
       - name: Run API Tests
         timeout-minutes: 5
         run: ./scripts/test-script.sh
         env:
-          VARIANT: <variant>
-          SERVICE_NAME: <your service name>
-          PORT_NUMBER: <port number>
+          VARIANT: v1
+          SERVICE_NAME: flight
+          PORT_NUMBER: 8060
 
-      - uses: education/autograding@v1
-        id: autograder
-        continue-on-error: true
+      # - uses: education/autograding@v1
+      #   id: autograder
+      #   continue-on-error: true
 
-      - name: Github auto grader mark
-        uses: Romanow/google-sheet-autograder-marker@v1.0
-        with:
-          google_token: ${{secrets.GOOGLE_API_KEY}}
-          sheet_id: "1xkgjUX6Qmk7rdJG-QPOToav-HWWtthJjnShIKnw3oIY"
-          homework_number: 3
-          user_column: 'D'
-          column_offset: 'F'
-          mark: "'+"
+      # - name: Github auto grader mark
+      #   uses: Romanow/google-sheet-autograder-marker@v1.0
+      #   with:
+      #     google_token: ${{secrets.GOOGLE_API_KEY}}
+      #     sheet_id: "1xkgjUX6Qmk7rdJG-QPOToav-HWWtthJjnShIKnw3oIY"
+      #     homework_number: 3
+      #     user_column: 'D'
+      #     column_offset: 'F'
+      #     mark: "'+"
 
       - name: Stop containers
         if: always()
